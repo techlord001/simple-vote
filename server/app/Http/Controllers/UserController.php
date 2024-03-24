@@ -13,6 +13,12 @@ class UserController extends Controller
             'email' => 'required|email',
         ]);
 
+        if (User::where('email', $request->email)->exists()) {
+            return response()->json([
+                'message' => 'User already exists',
+            ], 409);
+        }
+
         $user = User::create([
             'email' => $request->email,
         ]);
