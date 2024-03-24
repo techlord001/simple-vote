@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
 
 const props = defineProps({
   formTitle: String,
@@ -12,7 +11,6 @@ const props = defineProps({
 });
 
 const email = ref('');
-const router = useRouter();
 
 const handleSubmit = () => {
   props.onSubmit(email);
