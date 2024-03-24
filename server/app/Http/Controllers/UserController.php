@@ -42,6 +42,6 @@ class UserController extends Controller
 
         $token = $user->createToken('simple-vote-token')->plainTextToken;
 
-        return response()->json(['user' => $user, 'token' => $token], 200);
+        return response()->json(['email' => $user['email'], 'token' => $token], 200);
     }
 }

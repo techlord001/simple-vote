@@ -11,14 +11,19 @@ const handleLogin = (email) => {
     axios.post('/api/login', {
       email: email.value,
     }).then(response => {
+      localStorage.setItem('userEmail', response.data.email);
+      localStorage.setItem('authToken', response.data.token);
+
       console.log('Login successful:', response);
       router.push('/vote');
     }).catch(error => {
       console.error('Login error:', error);
+
       if (error.response.status === 404) {
         errorMessage.value = error.response.data.message;
         return;
       }
+
       errorMessage.value = 'Error during Login. Please try again.';
     })
 }
