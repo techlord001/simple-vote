@@ -4,6 +4,8 @@ This project is designed to showcase both Vue & Laravel understanding both in is
 
 Visitors are able to, using an email, register themselves, login, and cast a single vote for the set question.
 
+When a vote is cast, a user's IP address and Location are recorded.
+
 Votes are queued and a summary of results are sent out by email everyday at 23:59.
 
 ## Built With

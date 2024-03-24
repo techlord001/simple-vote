@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Jobs\StoreVote;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Stevebauman\Location\Facades\Location;
 
 class VoteController extends Controller
 {
@@ -12,7 +13,7 @@ class VoteController extends Controller
     {
         $request->validate([
             'vote_number' => 'required|integer',
-            'estimated_location' => 'required|string',
+            'estimated_location' => 'required|string', // Remove this line during deployment
         ]);
 
         $user = User::where('email', $request->email)->first();
@@ -23,7 +24,15 @@ class VoteController extends Controller
             ], 403);
         }
 
-        StoreVote::dispatch($user, $request->vote_number, $request->ip(), $request->estimated_location);
+        // Include for localhost testing
+        if ($request->ip() == 'http://localhost' || $request->ip() == 'http://127.0.0.1') {
+            $location = 'localhost';
+        }
+
+        // Add this during deployment
+        // $location = Location::get($request->ip()); // Call $location->countryName to get the country name
+
+        StoreVote::dispatch($user, $request->vote_number, $request->ip(), $location);
 
         return response()->json(['message' => 'Your vote has been cast!'], 201);
     }

@@ -28,7 +28,7 @@ const submitVote = () => {
   axios.post('/api/vote', {
     email: userEmail,
     vote_number: selectedChoice.value,
-    estimated_location: 'London'
+    estimated_location: 'London' // Remove when deploying live
   }, {
     headers: {
       Authorization: `Bearer ${authToken}`
