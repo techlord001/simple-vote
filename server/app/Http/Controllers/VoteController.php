@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\StoreVote;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -22,12 +23,8 @@ class VoteController extends Controller
             ], 403);
         }
 
-        $vote = $user->vote()->create([
-            'vote_number' => $request->vote_number,
-            'ip_address' => $request->ip(),
-            'estimated_location' => $request->estimated_location,
-        ]);
+        StoreVote::dispatch($user, $request->vote_number, $request->ip(), $request->estimated_location);
 
-        return response()->json($vote, 201);
+        return response()->json(['message' => 'Your vote has been cast!'], 201);
     }
 }
