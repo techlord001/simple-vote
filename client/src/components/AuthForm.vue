@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 const props = defineProps({
   formTitle: String,
@@ -8,12 +8,12 @@ const props = defineProps({
   linkRoute: String,
   onSubmit: Function,
   errorMessage: String,
-});
+})
 
-const email = ref('');
+const email = ref('')
 
 const handleSubmit = () => {
-  props.onSubmit(email);
+  props.onSubmit(email)
 }
 </script>
 
