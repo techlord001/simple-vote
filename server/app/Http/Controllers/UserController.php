@@ -34,6 +34,8 @@ class UserController extends Controller
             ], 404);
         }
 
-        return response()->json($user, 200);
+        $token = $user->createToken('simple-vote-token')->plainTextToken;
+
+        return response()->json(['user' => $user, 'token' => $token], 200);
     }
 }
